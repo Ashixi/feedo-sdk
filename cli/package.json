@@ -1,0 +1,31 @@
+{
+  "name": "feedo-sdk",
+  "version": "1.0.5",
+  "description": "CLI and SDK for Feedo",
+  "main": "dist/cli.js",
+  "bin": {
+    "feedo": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "dependencies": {
+    "archiver": "^8.0.0",
+    "axios": "^1.18.1",
+    "commander": "^15.0.0",
+    "dotenv": "^17.4.2",
+    "ethers": "^6.17.0",
+    "form-data": "^4.0.6"
+  },
+  "devDependencies": {
+    "@types/archiver": "^8.0.0",
+    "@types/node": "^26.1.1",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2"
+  }
+}
