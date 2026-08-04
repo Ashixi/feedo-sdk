@@ -12,7 +12,7 @@ const program = new Command();
 
 program
   .name('feedo')
-  .description('FEEDO Network Command Line Interface')
+  .description('FEEDO Protocol Command Line Interface')
   .version('1.0.0');
 
 program

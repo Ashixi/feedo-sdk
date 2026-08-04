@@ -134,7 +134,7 @@ export async function deploy(dir: string, options: { domain: string }) {
       gateways: []
     });
 
-    console.log('\n\x1b[32m%s\x1b[0m', '🚀 Success! Your site is live on the FEEDO Network.');
+    console.log('\n\x1b[32m%s\x1b[0m', '🚀 Success! Your site is live on the FEEDO Protocol.');
     console.log('--------------------------------------------------');
     console.log(`\x1b[36mDomain:\x1b[0m        ${domain}`);
     console.log(`\x1b[36mCID:\x1b[0m           ${cid}`);

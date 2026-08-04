@@ -1,8 +1,8 @@
-# Feedo Network TypeScript SDK
+# Feedo Protocol TypeScript SDK
 
-The official Developer SDK for interacting with the Feedo Network.
+The official Developer SDK for interacting with the Feedo Protocol.
 
-Feedo is a decentralized network consisting of Search, Consensus, and Storage nodes. This SDK provides a unified interface to interact with all layers of the Feedo Network from any JavaScript or TypeScript environment (Web3 dApps, Node.js backends, React Native).
+Feedo is a decentralized network consisting of Search, Consensus, and Storage nodes. This SDK provides a unified interface to interact with all layers of the Feedo Protocol from any JavaScript or TypeScript environment (Web3 dApps, Node.js backends, React Native).
 
 ## Features
 
@@ -13,11 +13,11 @@ Feedo is a decentralized network consisting of Search, Consensus, and Storage no
 ## Installation
 
 ```bash
-npm install feedo-network-sdk
+npm install feedo-protocol-sdk
 # or
-yarn add feedo-network-sdk
+yarn add feedo-protocol-sdk
 # or
-pnpm add feedo-network-sdk
+pnpm add feedo-protocol-sdk
 ```
 
 ## Initialization
@@ -25,7 +25,7 @@ pnpm add feedo-network-sdk
 You do not need to specify URLs for the nodes. The SDK comes with pre-configured seed nodes and uses a `NodeRouter` to find the fastest connection automatically.
 
 ```typescript
-import { FeedoClient } from 'feedo-network-sdk';
+import { FeedoClient } from 'feedo-protocol-sdk';
 
 const feedo = new FeedoClient();
 ```
@@ -153,7 +153,7 @@ The SDK handles node failover automatically via the `NodeRouter`. However, if al
 try {
     const results = await feedo.search.query("DeFi protocols");
 } catch (error: any) {
-    console.error("Feedo Network Error:", error.message);
+    console.error("Feedo Protocol Error:", error.message);
 }
 ```
 
@@ -171,7 +171,7 @@ interface NameResolution {
 
 ## Contributing
 
-We welcome contributions to the Feedo Network SDK! 
+We welcome contributions to the Feedo Protocol SDK! 
 GitHub Repository: [https://github.com/Ashixi/feedo-sdk](https://github.com/Ashixi/feedo-sdk)
 
 1. Fork the repository.

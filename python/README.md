@@ -1,8 +1,8 @@
-# Feedo Network Python SDK
+# Feedo Protocol Python SDK
 
-The official Developer SDK for interacting with the Feedo Network.
+The official Developer SDK for interacting with the Feedo Protocol.
 
-Feedo is a decentralized network consisting of Search, Consensus, and Storage nodes. This SDK provides a unified, asynchronous interface to interact with all layers of the Feedo Network.
+Feedo is a decentralized network consisting of Search, Consensus, and Storage nodes. This SDK provides a unified, asynchronous interface to interact with all layers of the Feedo Protocol.
 
 ## Features
 
@@ -157,12 +157,12 @@ The SDK handles node failover automatically via the `NodeRouter`. However, if al
 try:
     results = await client.search.query("DeFi protocols")
 except Exception as e:
-    print(f"Feedo Network Error: {e}")
+    print(f"Feedo Protocol Error: {e}")
 ```
 
 ## Response Structures
 
-All responses are returned as native Python dictionaries matching the JSON schema of the Feedo Network. For example, a search result typically contains:
+All responses are returned as native Python dictionaries matching the JSON schema of the Feedo Protocol. For example, a search result typically contains:
 - `id`: Unique document identifier
 - `score`: Semantic similarity score
 - `metadata`: Associated metadata dictionary
@@ -170,7 +170,7 @@ All responses are returned as native Python dictionaries matching the JSON schem
 
 ## Contributing
 
-We welcome contributions to the Feedo Network SDK! 
+We welcome contributions to the Feedo Protocol SDK! 
 GitHub Repository: [https://github.com/Ashixi/feedo-sdk](https://github.com/Ashixi/feedo-sdk)
 
 1. Fork the repository.

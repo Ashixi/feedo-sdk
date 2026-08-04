@@ -1,7 +1,7 @@
 {
-  "name": "feedo-network-sdk",
-  "version": "0.1.6",
-  "description": "The official Developer SDK for Feedo Network",
+  "name": "feedo-protocol-sdk",
+  "version": "0.1.7",
+  "description": "The official Developer SDK for Feedo Protocol",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -21,6 +21,6 @@
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
-  "author": "Feedo Network",
+  "author": "Feedo Protocol",
   "license": "Apache-2.0"
 }
