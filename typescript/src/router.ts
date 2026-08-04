@@ -7,10 +7,10 @@ export interface FeedoNetworkConfig {
 }
 
 const DEFAULT_SEEDS = {
-    // For local dev, we include localhost ports as well as the mainnet/testnet URLs
-    search: ["http://localhost:8000"], 
-    consensus: ["http://localhost:8080"], // Standard Axum port
-    storage: ["http://localhost:8081"]
+    // Mainnet nodes and local fallback
+    search: ["http://95.111.245.68:8000", "http://178.18.253.94:8000", "http://localhost:8000"], 
+    consensus: ["http://95.111.245.68:8080", "http://178.18.253.94:8080", "http://localhost:8080"],
+    storage: ["http://95.111.245.68:8081", "http://178.18.253.94:8081", "http://localhost:8081"]
 };
 
 export class NodeRouter {

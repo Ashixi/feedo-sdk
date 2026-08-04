@@ -3,9 +3,9 @@ import asyncio
 from typing import List, Optional, Dict
 
 DEFAULT_SEEDS = {
-    "search": ["http://localhost:8000"],
-    "consensus": ["http://localhost:8080"],
-    "storage": ["http://localhost:8081"]
+    "search": ["http://95.111.245.68:8000", "http://178.18.253.94:8000", "http://localhost:8000"],
+    "consensus": ["http://95.111.245.68:8080", "http://178.18.253.94:8080", "http://localhost:8080"],
+    "storage": ["http://95.111.245.68:8081", "http://178.18.253.94:8081", "http://localhost:8081"]
 }
 
 class NodeRouter:
