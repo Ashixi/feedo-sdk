@@ -60,6 +60,21 @@ Please refer to the `README.md` inside your specific language's folder for detai
 
 ---
 
+## Pricing & Economics (Testnet vs Mainnet)
+
+**Currently, the network is in Testnet/Early Access mode and is completely FREE.**
+Upon registering a new DID, you receive 500,000 test credits, which allows you to upload files and perform semantic searches without any real-world cost.
+
+**Future Mainnet Pricing:**
+As the network scales and onboards enterprise clients, the Feedo Protocol will transition to a sustainable paid model. The target pricing structure is designed to be highly competitive for Web3 and AI developers:
+
+- **Decentralized Storage:** ~$5.00 per Terabyte (TB)
+- **Vector Search / Indexing:** ~$5.00 per 10,000 semantic search queries
+
+*(Note: Pricing will be managed via on-chain tokenomics and smart contracts, allowing developers to pay via stablecoins or the native Feedo token).*
+
+---
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit issues, fork the repository and send pull requests.
