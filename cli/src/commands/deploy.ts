@@ -61,17 +61,24 @@ export async function deploy(dir: string, options: { domain: string }) {
     let cid: string | null = null;
     let lastError: any = null;
 
-    for (const node of SEARCH_NODES) {
-        console.log(`⏳ Trying node ${node}...`);
-        try {
-            const formData = new FormData();
-            formData.append('file', fs.createReadStream(tempZipPath));
-            
-            const uploadRes = await axios.post(`${node}/proxy/publish_feedo`, formData, {
-              headers: {
-                ...formData.getHeaders(),
-                'X-Feedo-Storage-Class': 'Website'
-              },
+        const timestamp = Date.now().toString();
+        const payloadStr = `FeedoAction:POST:/proxy/publish_feedo:${timestamp}`;
+        const signature = await ethWallet.signMessage(payloadStr);
+
+        for (const node of SEARCH_NODES) {
+            console.log(`⏳ Trying node ${node}...`);
+            try {
+                const formData = new FormData();
+                formData.append('file', fs.createReadStream(tempZipPath));
+                
+                const uploadRes = await axios.post(`${node}/proxy/publish_feedo`, formData, {
+                  headers: {
+                    ...formData.getHeaders(),
+                    'X-Feedo-Storage-Class': 'Website',
+                    'X-Feedo-DID': walletData.did,
+                    'X-Feedo-Timestamp': timestamp,
+                    'X-Feedo-Signature': signature
+                  },
               timeout: 60000 // 60s timeout to avoid getting stuck forever
             });
             
@@ -82,6 +89,9 @@ export async function deploy(dir: string, options: { domain: string }) {
             }
         } catch (err: any) {
             console.log(`⚠️ Node ${node} failed: ${err.message}`);
+            if (err.response && err.response.data) {
+                console.log(`Response data: ${JSON.stringify(err.response.data)}`);
+            }
             lastError = err;
         }
     }

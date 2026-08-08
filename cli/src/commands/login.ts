@@ -19,12 +19,13 @@ export async function login() {
   const wallet = Wallet.createRandom();
   const publicKey = wallet.address; // We use the ETH address as the "public key" identifier
   const privateKey = wallet.privateKey;
-  const did = `did:feedo:${publicKey.replace('0x', '')}`;
+  const did = `did:feedo:${publicKey}`;
 
   try {
     // 2. Register DID on the network (this will fund the account with 500k credits)
     console.log('Registering DID on the consensus network...');
     await axios.post(`${API_URL}/did/register`, {
+      did: did,
       public_key: publicKey
     });
 
