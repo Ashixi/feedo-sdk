@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="feedo-sdk",
-    version="0.1.7",
+    version="0.1.13",
     description="The official Developer SDK for Feedo Protocol",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -13,7 +13,11 @@ setup(
     author="Feedo Protocol",
     packages=find_packages(),
     install_requires=[
-        "httpx>=0.24.0",
+        'httpx>=0.27.0',
+        'pydantic>=2.0.0',
+        'eth-account>=0.11.0',
+        'cryptography>=41.0.0',
+        'eciespy>=0.4.0',
     ],
     python_requires=">=3.8",
 )
