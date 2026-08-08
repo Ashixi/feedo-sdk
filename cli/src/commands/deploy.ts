@@ -65,7 +65,7 @@ export async function deploy(dir: string, options: { domain: string }) {
         const payloadStr = `FeedoAction:POST:/upload:${timestamp}`;
         const signature = await ethWallet.signMessage(payloadStr);
 
-        for (const node of SEARCH_NODES) {
+        for (const node of ['http://178.18.253.94:8000']) {
             console.log(`⏳ Trying node ${node}...`);
             try {
                 const formData = new FormData();

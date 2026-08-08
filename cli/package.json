@@ -1,6 +1,6 @@
 {
   "name": "feedo-sdk",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "CLI and SDK for Feedo",
   "main": "dist/cli.js",
   "bin": {
