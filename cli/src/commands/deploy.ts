@@ -62,7 +62,7 @@ export async function deploy(dir: string, options: { domain: string }) {
     let lastError: any = null;
 
         const timestamp = Date.now().toString();
-        const payloadStr = `FeedoAction:POST:/proxy/publish_feedo:${timestamp}`;
+        const payloadStr = `FeedoAction:POST:/upload:${timestamp}`;
         const signature = await ethWallet.signMessage(payloadStr);
 
         for (const node of SEARCH_NODES) {
