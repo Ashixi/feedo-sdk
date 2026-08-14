@@ -22,11 +22,15 @@ export async function login() {
   const did = `did:feedo:${publicKey}`;
 
   try {
-    // 2. Register DID on the network (this will fund the account with 500k credits)
+    // 2. Register DID on the network (this will fund the account with 500k credits).
+    //    Prove ownership by signing the canonical registration message.
     console.log('Registering DID on the consensus network...');
+    const message = `feedo register ${did}`;
+    const signature = await wallet.signMessage(message);
     await axios.post(`${API_URL}/did/register`, {
       did: did,
-      public_key: publicKey
+      public_key: publicKey,
+      signature: signature
     });
 
     // 3. Save locally

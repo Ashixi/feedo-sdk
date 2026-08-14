@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { login } from './commands/login';
 import { balance } from './commands/balance';
 import { deploy } from './commands/deploy';
+import { usageKey, delegate } from './commands/usage-key';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -25,6 +26,16 @@ program
   .command('balance')
   .description('Check the credit balance for your DID')
   .action(balance);
+
+program
+  .command('usage-key')
+  .description('Derive the usage key (0xD) from your wallet key. Safe to put in env.')
+  .action(usageKey);
+
+program
+  .command('delegate')
+  .description('Register your usage-key delegation on the consensus network')
+  .action(delegate);
 
 program
   .command('deploy')
