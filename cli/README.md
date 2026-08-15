@@ -49,6 +49,24 @@ Deploys a static directory (like a React `build` or Vue `dist` folder) to Feedo.
 feedo deploy ./build --domain myapp.feedo
 ```
 
+### `feedo usage-key`
+Derives the usage key (0xD) from your wallet key via `HMAC-SHA256(wallet_sk, "feedo/usage-key/v1")`. This is the key you put in a server env — it signs requests but cannot move funds.
+
+**Usage:**
+```bash
+feedo usage-key
+```
+
+### `feedo delegate`
+Registers the usage-key delegation on the consensus network. Your wallet signs `feedo delegate usage to <0xD>`, authorizing the usage key to act on your DID.
+
+**Usage:**
+```bash
+feedo delegate
+```
+
+> **Tip:** after `feedo init`, run `feedo usage-key` + `feedo delegate` if you want a separate usage key for server deployments. The wallet key stays offline; only the usage key goes into env. Alternatively, generate a random usage key on the identity page.
+
 ## ⚠️ Troubleshooting & Common Issues
 
 ### 1. Blank Screen on React/Vite Sites (Asset 404s)
