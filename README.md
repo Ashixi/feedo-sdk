@@ -51,6 +51,19 @@ By using these SDKs, developers can easily interact with all three layers of the
    - **Indexing**: Make public or private documents searchable.
    - **Web2 Gateway**: HTTP gateway for fast content retrieval.
 
+## Identity (DID & Usage Key)
+
+Your **identity is your wallet** — your DID is simply `did:feedo:0x<your-wallet-address>`.
+
+- **Register** once by signing `feedo register <did>` (`registerDid` / `register_did`).
+- For server SDKs, use a separate **usage key** so your funding key never leaves your wallet. See the "Usage Key & Delegation" section in each SDK's README.
+- You can create an identity + usage key without code at [https://feedo.ink/identity.html](https://feedo.ink/identity.html) (any EIP-6963 wallet: MetaMask, Coinbase Wallet, Rabby, …).
+
+Learn more:
+- [TypeScript SDK — Usage Key & Delegation](./typescript/README.md#usage-key--delegation-server-side)
+- [Python SDK — Usage Key & Delegation](./python/README.md#usage-key--delegation-server-side)
+- [CLI — `feedo usage-key` / `feedo delegate`](./cli/README.md#feedo-usage-key)
+
 ## Important Note for New Developers ⚠️
 
 Before you can upload files or perform any write operations using these SDKs, **you must first register your DID**.
@@ -68,7 +81,7 @@ Upon registering a new DID, you receive 500,000 test credits, which allows you t
 **Future Mainnet Pricing:**
 As the network scales and onboards enterprise clients, the Feedo Protocol will transition to a sustainable paid model. The target pricing structure is designed to be highly competitive for Web3 and AI developers:
 
-- **Decentralized Storage:** ~$5.00 per Terabyte (TB)
+- **Decentralized Storage:** ~$20.00 per Terabyte (TB)
 - **Vector Search / Indexing:** ~$5.00 per 10,000 semantic search queries
 
 *(Note: Pricing will be managed via on-chain tokenomics and smart contracts, allowing developers to pay via stablecoins or the native Feedo token).*

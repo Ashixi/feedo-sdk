@@ -1,6 +1,6 @@
 {
   "name": "feedo-protocol-sdk",
-  "version": "0.1.14",
+  "version": "0.1.19",
   "description": "The official Developer SDK for the Feedo Protocol.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -17,11 +17,12 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^20.0.0",
+    "@types/node": "^20.19.43",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.12",
+    "ts-node": "^10.9.2",
     "tsup": "^8.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.3"
   },
   "author": "Feedo Protocol",
   "license": "Apache-2.0"

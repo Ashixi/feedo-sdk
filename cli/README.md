@@ -18,6 +18,8 @@ npm install -g feedo-sdk
 Initializes a new Feedo Identity.
 This command generates a new Decentralized Identifier (DID) and a cryptographic keypair (public and private keys). It also automatically registers your DID on the Feedo Consensus Node and creates a local `wallet.json` configuration file.
 
+> Prefer a browser flow? Create your identity (and a usage key) at [https://feedo.ink/identity.html](https://feedo.ink/identity.html).
+
 **Usage:**
 ```bash
 feedo init

@@ -64,6 +64,8 @@ Registering your DID creates your identity on the blockchain and grants you the 
 
 You only need to do this **once per wallet**.
 
+> **No-code option:** create your identity in the browser at [https://feedo.ink/identity.html](https://feedo.ink/identity.html) — connect any wallet, register the DID, and generate a usage key in one flow.
+
 ```python
 import asyncio
 from eth_account import Account
@@ -125,29 +127,66 @@ asyncio.run(main())
 
 The Search module handles semantic queries and document vectorization.
 
-### `query(query_text, limit=10, item_type="all", app_id=None)`
-Perform a semantic search across the network.
+### `search(query, limit=50, federated=True, item_type="all", offset=0, app_id=None, search_type="text", image_url=None, namespace=None)`
+Perform a semantic search across the network. By default, this performs text-to-text semantic search.
+To search for an image using text, set `search_type="image"`. To search for an image using another image, provide the `image_url` and set `search_type="image"`.
+
+- `namespace` (optional) — restrict the search to a single namespace (multi-tenant isolation).
+- `app_id` (optional) — filter by application.
+
 ```python
-response = await client.search.query("DeFi protocols", limit=5, item_type="post", app_id="SocialApp1")
+# Text-to-text search
+response = await client.search.search("DeFi protocols", limit=5, item_type="post", app_id="SocialApp1")
+
+# Search only within a namespace
+response = await client.search.search("DeFi protocols", limit=5, namespace="workspace-42")
+
+# Text-to-image search
+text_to_image = await client.search.search("red dress", limit=5, item_type="image", search_type="image")
+
+# Image-to-image search
+image_to_image = await client.search.search("", limit=5, item_type="image", search_type="image", image_url="https://example.com/dress.jpg")
 print(response.get("results", []))
 ```
 
-### `get_documents(limit=50, offset=0, item_type="all", app_id=None)`
+> `query(query_text, limit=10, item_type="all", app_id=None)` is kept as a shorter backwards-compatible alias of `search()`.
+
+### `get_documents(limit=50, offset=0, item_type="all", app_id=None, namespace=None)`
 Fetch a feed of the latest indexed documents.
 ```python
 feed = await client.search.get_documents(item_type="post", app_id="SocialApp1")
+
+# filtered by namespace
+feed = await client.search.get_documents(namespace="workspace-42")
 ```
 
-### `index_document(content, metadata=None)`
+### `index_document(content, metadata=None, namespace=None, hash_id=None)`
 Index a public document into the vector database.
+- `namespace` (optional) — logical partition for the document.
+- `hash_id` (optional) — custom id (useful for later deletion); auto-generated if omitted.
 ```python
 await client.search.index_document("Bitcoin is decentralized.", {"type": "post"})
+await client.search.index_document("Some private note", {"type": "post"}, namespace="workspace-42")
 ```
 
-### `index_private_document(hash_id, plaintext, metadata=None)`
+### `index_private_document(hash_id, plaintext, metadata=None, namespace=None)`
 Index a **private** document (requires `private_key` to sign the request).
 ```python
-await client.search.index_private_document(hash_id, "My private content", {"app_id": "com.myapp"})
+await client.search.index_private_document(hash_id, "My private content", {"app_id": "com.myapp"}, namespace="workspace-42")
+```
+
+### `count_by_namespace(namespace, federated=True) -> {"count": int}`
+Count all vectors in a namespace across the federated network.
+```python
+res = await client.search.count_by_namespace("workspace-42")
+print(res["count"])
+```
+
+### `delete_by_namespace(namespace) -> {"status": str, "deleted": int}`
+Delete all vectors in a namespace.
+```python
+res = await client.search.delete_by_namespace("workspace-42")
+print(res["deleted"])
 ```
 
 ### `get_stats()`
@@ -264,6 +303,53 @@ X-Feedo-DID:       did:feedo:0xYourAddress
 X-Feedo-Timestamp: 1722345678901
 X-Feedo-Signature: 0x<ECDSA signature of "FeedoAction:METHOD:PATH:TIMESTAMP">
 ```
+
+---
+
+## Usage Key & Delegation (server-side)
+
+Your DID **is** your wallet address — the **funding key** that holds your credits/funds. For server SDKs (AnythingLLM, Dify, backends), never put the funding key in the environment. Instead, use a separate **usage key** that only signs requests and can never move funds.
+
+| Key | What it is | Holds funds? |
+|---|---|---|
+| **Funding key** | Your wallet. `did:feedo:<address>` | yes |
+| **Usage key** | Separate key that signs requests | no — only spends your credits |
+
+### Getting a usage key
+
+**Option A — Website (recommended).** Open [https://feedo.ink/identity.html](https://feedo.ink/identity.html), connect any wallet (EIP-6963: MetaMask, Coinbase Wallet, Rabby, Trust, Brave, Phantom, OKX…), and click **Generate usage key**. The site generates a random usage key in the browser and registers the delegation with a single wallet signature. Copy the printed private key into your server env.
+
+**Option B — SDK / CLI (deterministic).** Derive it from your wallet key with HMAC:
+
+```python
+from feedo.modules.crypto import FeedoCrypto
+
+usage = FeedoCrypto.derive_usage_key(wallet_private_key_hex)
+print(usage["address"], usage["private_key"])
+```
+
+Then register the delegation once — the wallet signs `feedo delegate usage to <usage_address>`:
+
+```
+POST /did/delegate  { did, usage_key, signature }
+```
+
+Or run `feedo delegate` from the CLI.
+
+### Delegated mode
+
+```python
+from feedo import FeedoClient
+
+client = FeedoClient(
+    usage_key="0x...",           # the usage key (NOT your funding key)
+    did="did:feedo:0x...",       # your wallet DID (owner)
+    consensus_seeds=["https://consensus.feedo.network"],
+    search_seeds=["https://search.feedo.network"],
+)
+```
+
+Requests are signed with the usage key and declare the owner DID; nodes resolve the delegation automatically.
 
 ---
 
